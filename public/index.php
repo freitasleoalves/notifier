@@ -43,6 +43,26 @@
     </tr>
   </table>
 </form>
+  
+<form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
+  <table border="0">
+    <tr>
+      <td>NAME</td>
+      <td>CELLPHONE</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" name="ID" maxlength="20" size="30" />
+      </td>
+      <td>
+        <input type="text" name="Message" maxlength="90" size="60" />
+      </td>
+      <td>
+        <input type="submit" value="Send" />
+      </td>
+    </tr>
+  </table>
+</form>
 
 <!-- Display table data. -->
 <table border="1" cellpadding="2" cellspacing="2">
@@ -117,25 +137,4 @@ function TableExists($tableName, $connection, $dbName) {
 
   return false;
 }
-
-<form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
-  <table border="0">
-    <tr>
-      <td>NAME</td>
-      <td>CELLPHONE</td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" name="ID" maxlength="20" size="30" />
-      </td>
-      <td>
-        <input type="text" name="Message" maxlength="90" size="60" />
-      </td>
-      <td>
-        <input type="submit" value="Send" />
-      </td>
-    </tr>
-  </table>
-</form>
-
 ?>
