@@ -52,6 +52,21 @@
     <td>CELLPHONE</td>
   </tr>
 
+<?php
+
+$result = mysqli_query($connection, "SELECT * FROM USERS");
+
+while($query_data = mysqli_fetch_row($result)) {
+  echo "<tr>";
+  echo "<td>",$query_data[0], "</td>",
+       "<td>",$query_data[1], "</td>",
+       "<td>",$query_data[2], "</td>";
+  echo "</tr>";
+}
+?>
+
+</table>
+
 <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
   <table border="0">
     <tr>
@@ -71,21 +86,6 @@
     </tr>
   </table>
 </form>
-
-<?php
-
-$result = mysqli_query($connection, "SELECT * FROM USERS");
-
-while($query_data = mysqli_fetch_row($result)) {
-  echo "<tr>";
-  echo "<td>",$query_data[0], "</td>",
-       "<td>",$query_data[1], "</td>",
-       "<td>",$query_data[2], "</td>";
-  echo "</tr>";
-}
-?>
-
-</table>
 
 <!-- Clean up. -->
 <?php
