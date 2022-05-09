@@ -47,15 +47,15 @@
 <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
   <table border="0">
     <tr>
-      <td>NAME</td>
-      <td>CELLPHONE</td>
+      <td>ID</td>
+      <td>Message</td>
     </tr>
     <tr>
       <td>
         <input type="text" name="ID" maxlength="20" size="30" />
       </td>
       <td>
-        <input type="text" name="Message" maxlength="90" size="60" />
+        <input type="text" name="message" maxlength="90" size="60" />
       </td>
       <td>
         <input type="submit" value="Send" />
