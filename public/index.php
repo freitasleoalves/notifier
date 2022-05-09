@@ -137,4 +137,29 @@ function TableExists($tableName, $connection, $dbName) {
 
   return false;
 }
+
+/* Send Message. */
+function SendMessage($connection, $ID, $message) {
+  /* $checknumber = mysqli_query($connection,
+      "SELECT CELLPHONE FROM USERS WHERE ID = '$ID'"); */
+
+      require 'vendor/autoload.php';
+      
+      $sdk = new Aws\Sns\SnsClient([
+          'region'  => 'us-east-1',
+          'version' => 'latest',
+          'credentials' => ['key' => 'xxx', 'secret' => 'xxx']
+        ]);
+      
+      $result = $sdk->publish([
+          'Message' => 'This is a test message.',
+          'PhoneNumber' => '+5511982078687',
+          'MessageAttributes' => ['AWS.SNS.SMS.SenderID' => [
+               'DataType' => 'String',
+               'StringValue' => 'Teste'
+            ]
+        ]]);
+      print_r( $result );
+}
+
 ?>
