@@ -43,7 +43,15 @@
     </tr>
   </table>
 </form>
-  
+
+<!-- Display table data. -->
+<table border="1" cellpadding="2" cellspacing="2">
+  <tr>
+    <td>ID</td>
+    <td>NAME</td>
+    <td>CELLPHONE</td>
+  </tr>
+
 <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
   <table border="0">
     <tr>
@@ -52,7 +60,7 @@
     </tr>
     <tr>
       <td>
-        <input type="text" name="ID" maxlength="20" size="30" />
+        <input type="text" name="ID" maxlength="10" size="15" />
       </td>
       <td>
         <input type="text" name="message" maxlength="90" size="60" />
@@ -63,14 +71,6 @@
     </tr>
   </table>
 </form>
-
-<!-- Display table data. -->
-<table border="1" cellpadding="2" cellspacing="2">
-  <tr>
-    <td>ID</td>
-    <td>NAME</td>
-    <td>CELLPHONE</td>
-  </tr>
 
 <?php
 
