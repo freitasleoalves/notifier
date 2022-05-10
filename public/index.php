@@ -170,9 +170,9 @@ function TableExists($tableName, $connection, $dbName) {
 }
 
 /* Send Message. */
-function SendMessage($connection, $ID, $message) {
-  /* $checknumber = mysqli_query($connection,
-      "SELECT CELLPHONE FROM USERS WHERE ID = '$ID'"); */
+/* function SendMessage($connection, $ID, $message) {
+  $checknumber = mysqli_query($connection,
+      "SELECT CELLPHONE FROM USERS WHERE ID = '$ID'");
   require './vendor/autoload.php';
 
   $params = array(
@@ -203,6 +203,6 @@ function SendMessage($connection, $ID, $message) {
   );
   
   $result = $sns->publish($args);
-}
+} */
 
 ?>
