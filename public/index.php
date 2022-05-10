@@ -81,7 +81,7 @@ while($query_data = mysqli_fetch_row($result)) {
         <input type="text" name="message" maxlength="90" size="60" />
       </td>
       <td>
-        <input type="submit" value="Send" />
+        <input type="submit" value="send-message" />
       </td>
     </tr>
   </table>
@@ -142,24 +142,36 @@ function TableExists($tableName, $connection, $dbName) {
 function SendMessage($connection, $ID, $message) {
   /* $checknumber = mysqli_query($connection,
       "SELECT CELLPHONE FROM USERS WHERE ID = '$ID'"); */
+  require './vendor/autoload.php';
 
-      require 'vendor/autoload.php';
-      
-      $sdk = new Aws\Sns\SnsClient([
-          'region'  => 'us-east-1',
-          'version' => 'latest',
-          'credentials' => ['key' => 'xxx', 'secret' => 'xxx']
-        ]);
-      
-      $result = $sdk->publish([
-          'Message' => 'This is a test message.',
-          'PhoneNumber' => '+5511982078687',
-          'MessageAttributes' => ['AWS.SNS.SMS.SenderID' => [
-               'DataType' => 'String',
-               'StringValue' => 'Teste'
-            ]
-        ]]);
-      print_r( $result );
+  $params = array(
+      'credentials' => array(
+          'key' => 'ASIASUQAAHAJXVB6P4P2',
+          'secret' => 'UZHXdX+EHCSu2uo//5lGvcWfC7iB48+phmU1bkLt',
+      ),
+      'region' => 'us-east-1', // < your aws from SNS Topic region
+      'version' => 'latest'
+  );
+  $sns = new \Aws\Sns\SnsClient($params);
+  
+  $args = array(
+      "MessageAttributes" => [
+                  // You can put your senderId here. but first you have to verify the senderid by customer support of AWS then you can use your senderId.
+                  // If you don't have senderId then you can comment senderId 
+                  // 'AWS.SNS.SMS.SenderID' => [
+                  //     'DataType' => 'String',
+                  //     'StringValue' => ''
+                  // ],
+                  'AWS.SNS.SMS.SMSType' => [
+                      'DataType' => 'String',
+                      'StringValue' => 'Transactional'
+                  ]
+              ],
+      "Message" => "teste sns aws",
+      "PhoneNumber" => "+5511982078687"   // Provide phone number with country code
+  );
+  
+  $result = $sns->publish($args);
 }
 
 ?>
