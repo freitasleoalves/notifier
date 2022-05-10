@@ -67,6 +67,14 @@ while($query_data = mysqli_fetch_row($result)) {
 
 </table>
 
+<!-- Clean up. -->
+<?php
+
+  mysqli_free_result($result);
+  mysqli_close($connection);
+
+?>
+
 <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
   <table border="0">
     <tr>
@@ -87,50 +95,10 @@ while($query_data = mysqli_fetch_row($result)) {
   </table>
 </form>
 
-<!-- Clean up. -->
-<?php
-
-  mysqli_free_result($result);
-  mysqli_close($connection);
-
-?>
-
 </body>
 </html>
 
-
 <?php
-
-require './vendor/autoload.php';
-
-  $params = array(
-      'credentials' => array(
-          'key' => 'ASIASUQAAHAJXVB6P4P2',
-          'secret' => 'UZHXdX+EHCSu2uo//5lGvcWfC7iB48+phmU1bkLt',
-      ),
-      'region' => 'us-east-1', // < your aws from SNS Topic region
-      'version' => 'latest'
-  );
-  $sns = new \Aws\Sns\SnsClient($params);
-  
-  $args = array(
-      "MessageAttributes" => [
-                  // You can put your senderId here. but first you have to verify the senderid by customer support of AWS then you can use your senderId.
-                  // If you don't have senderId then you can comment senderId 
-                  // 'AWS.SNS.SMS.SenderID' => [
-                  //     'DataType' => 'String',
-                  //     'StringValue' => ''
-                  // ],
-                  'AWS.SNS.SMS.SMSType' => [
-                      'DataType' => 'String',
-                      'StringValue' => 'Transactional'
-                  ]
-              ],
-      "Message" => "teste sns aws",
-      "PhoneNumber" => "+5511982078687"   // Provide phone number with country code
-  );
-  
-  $result = $sns->publish($args);
 
 /* Add an User to the table. */
 function AddUser($connection, $name, $cellphone) {
@@ -168,41 +136,4 @@ function TableExists($tableName, $connection, $dbName) {
 
   return false;
 }
-
-/* Send Message. */
-/* function SendMessage($connection, $ID, $message) {
-  $checknumber = mysqli_query($connection,
-      "SELECT CELLPHONE FROM USERS WHERE ID = '$ID'");
-  require './vendor/autoload.php';
-
-  $params = array(
-      'credentials' => array(
-          'key' => 'ASIASUQAAHAJXVB6P4P2',
-          'secret' => 'UZHXdX+EHCSu2uo//5lGvcWfC7iB48+phmU1bkLt',
-      ),
-      'region' => 'us-east-1', // < your aws from SNS Topic region
-      'version' => 'latest'
-  );
-  $sns = new \Aws\Sns\SnsClient($params);
-  
-  $args = array(
-      "MessageAttributes" => [
-                  // You can put your senderId here. but first you have to verify the senderid by customer support of AWS then you can use your senderId.
-                  // If you don't have senderId then you can comment senderId 
-                  // 'AWS.SNS.SMS.SenderID' => [
-                  //     'DataType' => 'String',
-                  //     'StringValue' => ''
-                  // ],
-                  'AWS.SNS.SMS.SMSType' => [
-                      'DataType' => 'String',
-                      'StringValue' => 'Transactional'
-                  ]
-              ],
-      "Message" => "teste sns aws",
-      "PhoneNumber" => "+5511982078687"   // Provide phone number with country code
-  );
-  
-  $result = $sns->publish($args);
-} */
-
 ?>
