@@ -26,10 +26,10 @@ cd /tmp
 git clone https://github.com/freitasleoalves/notifier
 cp /tmp/notifier/public/index.php /var/www/html/
 
-# Start Apache service
-service httpd restart
-
 # Executa script para configuração do composer
 cd /tmp/notifier
 sudo chmod +x composer-sns.sh
 sudo ./composer-sns.sh
+
+# Start Apache service
+service httpd restart
