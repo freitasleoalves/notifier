@@ -95,6 +95,30 @@ while($query_data = mysqli_fetch_row($result)) {
   </table>
 </form>
 
+<table border="1" cellpadding="2" cellspacing="2">
+  <tr>
+    <td>CELLPHONE</td>
+  </tr>
+
+  <?php
+
+  $id = mysqli_real_escape_string($connection, "SELECT CELLPHONE FROM USERS WHERE ID = ID");
+
+  $result = mysqli_query($connection, $id);
+
+  while($query_data = mysqli_fetch_row($result)) {
+    echo "<tr>";
+        "<td>",$query_data[2], "</td>";
+    echo "</tr>";
+  }
+  ?>
+
+</table>
+
+
+
+
+
 </body>
 </html>
 
