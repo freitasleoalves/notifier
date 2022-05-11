@@ -1,6 +1,5 @@
 <?php
 	require './vendor/autoload.php';
-	
 
 	$params = array(
 	    'credentials' => array(
@@ -12,7 +11,6 @@
 	);
 	$sns = new \Aws\Sns\SnsClient($params);
 	
-
 	$args = array(
 	    "MessageAttributes" => [
 	                // You can put your senderId here. but first you have to verify the senderid by customer support of AWS then you can use your senderId.
@@ -30,10 +28,6 @@
 	    "PhoneNumber" => "-- +{CountryCode}{PhoneNumber} --"   // Provide phone number with country code
 	);
 	
-
-	
-
 	$result = $sns->publish($args);
 	
-
 	var_dump($result); // You can check the response

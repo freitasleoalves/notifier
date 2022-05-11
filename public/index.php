@@ -67,6 +67,8 @@ while($query_data = mysqli_fetch_row($result)) {
 
 </table>
 
+
+
 <!-- Clean up. -->
 <?php
 
@@ -75,6 +77,7 @@ while($query_data = mysqli_fetch_row($result)) {
 
 ?>
 
+<!-- Inserir Função de envio de mensagem neste bloco -->
 <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
   <table border="0">
     <tr>
@@ -95,6 +98,7 @@ while($query_data = mysqli_fetch_row($result)) {
   </table>
 </form>
 
+<!-- Teste de consulta no banco de dados ao clicar no botão de send-message -->
 <table border="1" cellpadding="2" cellspacing="2">
   <tr>
     <td>CELLPHONE</td>
@@ -114,10 +118,6 @@ while($query_data = mysqli_fetch_row($result)) {
   ?>
 
 </table>
-
-
-
-
 
 </body>
 </html>
