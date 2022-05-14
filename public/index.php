@@ -1,125 +1,119 @@
 <?php include "../config.php"; ?>
 <html>
-<body>
-<h1>Sample page</h1>
-<?php
+  <body>
+    <h1>Sample page</h1>
+    <?php
 
-  /* Connect to MySQL and select the database. */
-  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+      /* Connect to MySQL and select the database. */
+      $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 
-  if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
 
-  $database = mysqli_select_db($connection, DB_DATABASE);
+      $database = mysqli_select_db($connection, DB_DATABASE);
 
-  /* Ensure that the USERS table exists. */
-  VerifyUsersTable($connection, DB_DATABASE);
+      /* Ensure that the USERS table exists. */
+      VerifyUsersTable($connection, DB_DATABASE);
 
-  /* If input fields are populated, add a row to the USERS table. */
-  $user_name = htmlentities($_POST['NAME']);
-  $user_cellphone = htmlentities($_POST['CELLPHONE']);
+      /* If input fields are populated, add a row to the USERS table. */
+      $user_name = htmlentities($_POST['NAME']);
+      $user_cellphone = htmlentities($_POST['CELLPHONE']);
 
-  if (strlen($user_name) || strlen($user_cellphone)) {
-    AddUser($connection, $user_name, $user_cellphone);
-  }
-?>
+      if (strlen($user_name) || strlen($user_cellphone)) {
+        AddUser($connection, $user_name, $user_cellphone);
+      }
+    ?>
 
-<!-- Input form -->
-<form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
-  <table border="0">
-    <tr>
-      <td>NAME</td>
-      <td>CELLPHONE</td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" name="NAME" maxlength="45" size="30" />
-      </td>
-      <td>
-        <input type="text" name="CELLPHONE" maxlength="90" size="60" />
-      </td>
-      <td>
-        <input type="submit" value="Send" />
-      </td>
-    </tr>
-  </table>
-</form>
+    <!-- Input form -->
+    <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
+      <table border="0">
+        <tr>
+          <td>NAME</td>
+          <td>CELLPHONE</td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" name="NAME" maxlength="45" size="30" />
+          </td>
+          <td>
+            <input type="text" name="CELLPHONE" maxlength="90" size="60" />
+          </td>
+          <td>
+            <input type="submit" value="Send" />
+          </td>
+        </tr>
+      </table>
+    </form>
 
-<!-- Display table data. -->
-<table border="1" cellpadding="2" cellspacing="2">
-  <tr>
-    <td>ID</td>
-    <td>NAME</td>
-    <td>CELLPHONE</td>
-  </tr>
+    <!-- Display table data. -->
+    <table border="1" cellpadding="2" cellspacing="2">
+      <tr>
+        <td>ID</td>
+        <td>NAME</td>
+        <td>CELLPHONE</td>
+      </tr>
+    <?php
 
-<?php
+    $result = mysqli_query($connection, "SELECT * FROM USERS");
 
-$result = mysqli_query($connection, "SELECT * FROM USERS");
+    while($query_data = mysqli_fetch_row($result)) {
+      echo "<tr>";
+      echo "<td>",$query_data[0], "</td>",
+          "<td>",$query_data[1], "</td>",
+          "<td>",$query_data[2], "</td>";
+      echo "</tr>";
+    }
+    ?>
+    </table>
 
-while($query_data = mysqli_fetch_row($result)) {
-  echo "<tr>";
-  echo "<td>",$query_data[0], "</td>",
-       "<td>",$query_data[1], "</td>",
-       "<td>",$query_data[2], "</td>";
-  echo "</tr>";
-}
-?>
+    <!-- Clean up. -->
+    <?php
+      mysqli_free_result($result);
+      mysqli_close($connection);
+    ?>
 
-</table>
+    <!-- Inserir Função de envio de mensagem neste bloco -->
+    <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
+      <table border="0">
+        <tr>
+          <td>ID</td>
+          <td>Message</td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" name="ID" maxlength="10" size="15" />
+          </td>
+          <td>
+            <input type="text" name="message" maxlength="90" size="60" />
+          </td>
+          <td>
+            <input type="submit" value="send-message" />
+          </td>
+        </tr>
+      </table>
+    </form>
 
+    <!-- Teste de consulta no banco de dados ao clicar no botão de send-message -->
+    <table border="1" cellpadding="2" cellspacing="2">
+      <tr>
+        <td>CELLPHONE</td>
+      </tr>
 
+      <?php
 
-<!-- Clean up. -->
-<?php
+      $id = mysqli_real_escape_string($connection, "SELECT CELLPHONE FROM USERS WHERE ID = ID");
 
-  mysqli_free_result($result);
-  mysqli_close($connection);
+      $result = mysqli_query($connection, $id);
 
-?>
+      while($query_data = mysqli_fetch_row($result)) {
+        echo "<tr>";
+            "<td>",$query_data[2], "</td>";
+        echo "</tr>";
+      }
+      ?>
 
-<!-- Inserir Função de envio de mensagem neste bloco -->
-<form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
-  <table border="0">
-    <tr>
-      <td>ID</td>
-      <td>Message</td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" name="ID" maxlength="10" size="15" />
-      </td>
-      <td>
-        <input type="text" name="message" maxlength="90" size="60" />
-      </td>
-      <td>
-        <input type="submit" value="send-message" />
-      </td>
-    </tr>
-  </table>
-</form>
+    </table>
 
-<!-- Teste de consulta no banco de dados ao clicar no botão de send-message -->
-<table border="1" cellpadding="2" cellspacing="2">
-  <tr>
-    <td>CELLPHONE</td>
-  </tr>
-
-  <?php
-
-  $id = mysqli_real_escape_string($connection, "SELECT CELLPHONE FROM USERS WHERE ID = ID");
-
-  $result = mysqli_query($connection, $id);
-
-  while($query_data = mysqli_fetch_row($result)) {
-    echo "<tr>";
-        "<td>",$query_data[2], "</td>";
-    echo "</tr>";
-  }
-  ?>
-
-</table>
-
-</body>
+  </body>
 </html>
 
 <?php

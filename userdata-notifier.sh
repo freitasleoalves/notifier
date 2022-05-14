@@ -25,6 +25,7 @@ EOT
 cd /tmp
 git clone https://github.com/freitasleoalves/notifier
 cp /tmp/notifier/public/index.php /var/www/html/
+cp /tmp/notifier/public/teste_sns.php /var/www/html/
 
 # Executa script para configuração do composer
 cd /tmp/notifier
